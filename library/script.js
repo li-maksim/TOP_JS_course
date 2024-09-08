@@ -27,15 +27,18 @@ addBookToLibrary(TheIdiot);
 const cards = document.querySelector('.cards');
 
 const createCard = function(obj) {
+    const cardItem = document.createElement('div');
+    cardItem.setAttribute('class', 'card_item');
+    cards.appendChild(cardItem);
     const newUL = document.createElement('ul');
     const titleLI = document.createElement('li');
-    titleLI.textContent = obj.title;
+    titleLI.textContent = 'Title: ' + obj.title;
     newUL.appendChild(titleLI);
     const authorLI = document.createElement('li');
-    authorLI.textContent = obj.author;
+    authorLI.textContent = 'Author: ' + obj.author;
     newUL.appendChild(authorLI);
     const pagesLI = document.createElement('li');
-    pagesLI.textContent = obj.pages;
+    pagesLI.textContent = 'Pages: ' + obj.pages;
     newUL.appendChild(pagesLI);
     const readLI = document.createElement('li');
     if (obj.read == true) {
@@ -44,9 +47,16 @@ const createCard = function(obj) {
         readLI.textContent = 'Not read yet'
     };
     newUL.appendChild(readLI);
-    document.body.appendChild(newUL);
+    cardItem.appendChild(newUL);
+};
+
+function clearDisplay() {
+    while (cards.lastElementChild) {
+        cards.removeChild(cards.lastElementChild);
+    };
 };
 
 function displayBooks() {
-    myLibrary.forEach()
-}
+    clearDisplay();
+    myLibrary.forEach(createCard);
+};

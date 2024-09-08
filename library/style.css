@@ -4,11 +4,29 @@ body {
 }
 
 .cards {
+    padding: 20px;
+    display: flex;
     width: 1050px;
-    height: 300px;
+    min-height: 300px;
     margin: 0 auto;
     margin-top: 100px;
     background-color: grey;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.card_item {
+    padding: 20px;
+    height: 200px;
+    width: 150px;
+    border: solid black;
+}
+
+.card_item ul li {
+    line-height: 2rem;
+    font-size: 1rem;
+    list-style-type: none;
 }
 
 .new {
