@@ -14,11 +14,17 @@ function Book(title, author, pages, read) {
     };
   };
 
-const TheHobbit = new Book('The Hobbit', 'J. R. R. Tolkien', '304', false);
+const TheHobbit = new Book('The Hobbit', 'J. R. R. Tolkien', 304, false);
 const TheIdiot = new Book('The Idiot', 'F. M. Dostoevsky', 650, true);
+
+let indexNum = -1;
 
 function addBookToLibrary(book) {
     const updLibrary = myLibrary.push(book);
+}
+
+function delFromLibrary(a) {
+    myLibrary.splice(a, 1);
 }
 
 addBookToLibrary(TheHobbit);
@@ -28,7 +34,9 @@ const cards = document.querySelector('.cards');
 
 const createCard = function(obj) {
     const cardItem = document.createElement('div');
+    indexNum += 1;
     cardItem.setAttribute('class', 'card_item');
+    cardItem.setAttribute('data-index', indexNum);
     cards.appendChild(cardItem);
     const newUL = document.createElement('ul');
     const titleLI = document.createElement('li');
@@ -46,14 +54,23 @@ const createCard = function(obj) {
     } else {
         readLI.textContent = 'Not read yet'
     };
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Delete Book';
+    function delBook() {
+        delFromLibrary(cardItem.dataset.index);
+        cardItem.remove();
+    };
+    delBtn.addEventListener('click', delBook);
     newUL.appendChild(readLI);
     cardItem.appendChild(newUL);
+    cardItem.appendChild(delBtn);
 };
 
 function clearDisplay() {
     while (cards.lastElementChild) {
         cards.removeChild(cards.lastElementChild);
     };
+    indexNum = -1;
 };
 
 function displayBooks() {
@@ -72,7 +89,7 @@ const inputs = [
     document.querySelector('#pages'),
     document.querySelector('#read')
 ];
-    
+
 const addBookBtn = document.querySelector('.add_btn');
 function addBook(evt) {
     evt.preventDefault();
@@ -82,3 +99,5 @@ function addBook(evt) {
     form.close();
 }
 addBookBtn.addEventListener('click', addBook);
+
+displayBooks();
