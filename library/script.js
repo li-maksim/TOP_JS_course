@@ -60,3 +60,25 @@ function displayBooks() {
     clearDisplay();
     myLibrary.forEach(createCard);
 };
+
+const form = document.querySelector('dialog');
+
+const newBookBtn = document.querySelector('.new');
+newBookBtn.addEventListener('click', () => form.showModal());
+
+const inputs = [
+    document.querySelector('#title'),
+    document.querySelector('#author'),
+    document.querySelector('#pages'),
+    document.querySelector('#read')
+];
+    
+const addBookBtn = document.querySelector('.add_btn');
+function addBook(evt) {
+    evt.preventDefault();
+    const newBook = new Book(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value);
+    addBookToLibrary(newBook);
+    displayBooks();
+    form.close();
+}
+addBookBtn.addEventListener('click', addBook);
