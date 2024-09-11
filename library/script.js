@@ -49,7 +49,7 @@ const createCard = function(obj) {
     pagesLI.textContent = 'Pages: ' + obj.pages;
     newUL.appendChild(pagesLI);
     const readLI = document.createElement('li');
-    if (inputs[3].checked === true || obj.read == true) {
+    if (obj.read == true) {
         readLI.textContent = 'Read'
     } else {
         readLI.textContent = 'Not read yet'
@@ -93,7 +93,13 @@ const inputs = [
 const addBookBtn = document.querySelector('.add_btn');
 function addBook(evt) {
     evt.preventDefault();
-    const newBook = new Book(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value);
+    let input3 = '';
+    if (inputs[3].checked == true) {
+        input3 = true;
+    } else {
+        input3 = false;
+    };
+    const newBook = new Book(inputs[0].value, inputs[1].value, inputs[2].value, input3);
     addBookToLibrary(newBook);
     displayBooks();
     form.close();
