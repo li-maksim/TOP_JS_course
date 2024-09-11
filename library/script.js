@@ -49,7 +49,7 @@ const createCard = function(obj) {
     pagesLI.textContent = 'Pages: ' + obj.pages;
     newUL.appendChild(pagesLI);
     const readLI = document.createElement('li');
-    if (obj.read == true) {
+    if (inputs[3].checked === true || obj.read == true) {
         readLI.textContent = 'Read'
     } else {
         readLI.textContent = 'Not read yet'
