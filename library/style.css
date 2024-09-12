@@ -106,3 +106,7 @@ dialog .form .btn_wrap {
 .add_btn:active {
     transform: scale(110%);
 }
+
+.red_outline:invalid {
+    outline: solid red;
+}

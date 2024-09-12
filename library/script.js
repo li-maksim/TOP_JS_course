@@ -120,11 +120,21 @@ function addBook(evt) {
     } else {
         input3 = false;
     };
-    const newBook = new Book(inputs[0].value, inputs[1].value, parseInt(inputs[2].value), input3);
-    addBookToLibrary(newBook);
-    displayBooks();
-    form.close();
-}
+    if (inputs[0].value == '' ||
+        inputs[1].value == '' ||
+        inputs[0].value.length > 100 ||
+        inputs[1].value.length > 100 ||
+        inputs[2].value == ''
+    ) {
+        document.querySelectorAll('.required').forEach(x => x.setAttribute('class', 'red_outline'))
+        alert('Please fill all fields');
+    } else {
+        const newBook = new Book(inputs[0].value, inputs[1].value, parseInt(inputs[2].value), input3);
+        addBookToLibrary(newBook);
+        displayBooks();
+        form.close();
+    };
+};
 addBookBtn.addEventListener('click', addBook);
 
 displayBooks();
