@@ -10,7 +10,14 @@ function Book(title, author, pages, read) {
             console.log(`${this.title} by ${this.author}, ${this.pages} pages, read.`);
       } else {
             console.log(`${this.title} by ${this.author}, ${this.pages} pages, not read yet.`);
-      }
+      };
+    };
+    this.toggleRead = function() {
+        if (this.read == true) {
+            this.read = false;
+        } else {
+            this.read = true;
+        };
     };
   };
 
@@ -54,15 +61,29 @@ const createCard = function(obj) {
     } else {
         readLI.textContent = 'Not read yet'
     };
+    const toggleBtn = document.createElement('button');
+    if (obj.read == true) {
+        toggleBtn.textContent = 'Not read';
+        toggleBtn.style["background-color"] = 'grey';
+    } else {
+        toggleBtn.textContent = 'Read';
+        toggleBtn.style["background-color"] = 'white';
+    }
     const delBtn = document.createElement('button');
     delBtn.textContent = 'Delete Book';
     function delBook() {
         delFromLibrary(cardItem.dataset.index);
-        cardItem.remove();
+        displayBooks();
     };
+    const toggle = function() {
+        obj.toggleRead();
+        displayBooks();
+    }
+    toggleBtn.addEventListener('click', toggle);
     delBtn.addEventListener('click', delBook);
     newUL.appendChild(readLI);
     cardItem.appendChild(newUL);
+    cardItem.appendChild(toggleBtn);
     cardItem.appendChild(delBtn);
 };
 
@@ -99,7 +120,7 @@ function addBook(evt) {
     } else {
         input3 = false;
     };
-    const newBook = new Book(inputs[0].value, inputs[1].value, inputs[2].value, input3);
+    const newBook = new Book(inputs[0].value, inputs[1].value, parseInt(inputs[2].value), input3);
     addBookToLibrary(newBook);
     displayBooks();
     form.close();
