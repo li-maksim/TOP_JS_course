@@ -7,16 +7,25 @@ const Gameboard = (() => {
         const sector = document.createElement('div');
         sector.setAttribute('class', 'sector');
         board.appendChild(sector);
-        gameboard.push(sector);
+        const sectorID = {mark: ''};
+        gameboard.push(sectorID);
+    };
+    function changeMark(num, val) {
+        if (val == 'x' && gameboard[num].mark == '') {
+            gameboard[num].mark = 'x';
+        } else  if (val == 'o' && gameboard[num].mark == '') {
+            gameboard[num].mark = 'o';
+        };
     };
     body.appendChild(board);
 
-    return {gameboard}
+    return {gameboard, changeMark}
 })();
 
-const player1 = {
+const Player1 = {
     name: 'Player 1',
     score: 0,
+    playerMark: 'x';
     changeName(newName) {
         this.name = newName;
     },
@@ -27,9 +36,10 @@ const player1 = {
     }
 };
 
-const player2 = {
+const Player2 = {
     name: 'Player 2',
     score: 0,
+    playerMark: 'o';
     changeName(newName) {
         this.name = newName;
     },
@@ -38,4 +48,12 @@ const player2 = {
         playerScore++;
         this.score = playerScore;
     }
+};
+
+const GameLogic = (() => {
+
+})();
+
+function showGB() {
+    console.table(Gameboard.gameboard);
 };
