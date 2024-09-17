@@ -13,3 +13,29 @@ const Gameboard = (() => {
 
     return {gameboard}
 })();
+
+const player1 = {
+    name: 'Player 1',
+    score: 0,
+    changeName(newName) {
+        this.name = newName;
+    },
+    incrScore() {
+        let playerScore = this.score;
+        playerScore++;
+        this.score = playerScore;
+    }
+};
+
+const player2 = {
+    name: 'Player 2',
+    score: 0,
+    changeName(newName) {
+        this.name = newName;
+    },
+    incrScore() {
+        let playerScore = this.score;
+        playerScore++;
+        this.score = playerScore;
+    }
+};
