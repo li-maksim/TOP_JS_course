@@ -20,4 +20,11 @@ body {
     font-size: 7.5rem;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+.restart_btn {
+    height: 50px;
+    width: 200px;
+    text-transform: uppercase;
 }

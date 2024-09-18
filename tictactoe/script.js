@@ -37,7 +37,14 @@ const Gameboard = (() => {
         btn.addEventListener('click', addMark);
     });
 
-    return {gameboard, changeMark}
+    const restartFn = () => {GameLogic.restart()};
+    const restartBtn = document.createElement('button');
+    restartBtn.setAttribute('class', 'restart_btn');
+    restartBtn.textContent = 'restart';
+    restartBtn.addEventListener('click', restartFn);
+    body.appendChild(restartBtn);
+
+    return {gameboard, sectors, restartBtn}
 })();
 
 const Player1 = {
@@ -151,7 +158,16 @@ const GameLogic = (() => {
         };
     };
 
-    return {switchTurns, checkTurns, checkWinner};
+    function restart() {
+        Gameboard.gameboard.forEach(function(item) {
+            item.mark = '';
+        });
+        Gameboard.sectors.forEach(function(item) {
+            item.textContent = '';
+        });
+    };
+
+    return {switchTurns, checkTurns, checkWinner, restart};
 })();
 
 function showGB() {
