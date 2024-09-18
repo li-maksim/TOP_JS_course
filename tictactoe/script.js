@@ -22,12 +22,12 @@ const Gameboard = (() => {
     const sectors = document.querySelectorAll('.sector');
     sectors.forEach(function(btn, idx) {
         function addMark() {
-            if (GameLogic.checkTurns() == true) {
+            if (GameLogic.checkTurns() == true && sectors[idx].textContent == '') {
                 changeMark(idx, 'x');
                 btn.textContent = 'x';
                 GameLogic.switchTurns();
                 GameLogic.checkWinner();
-            } else {
+            } else if (GameLogic.checkTurns() == false && sectors[idx].textContent == '') {
                 changeMark(idx, 'o');
                 btn.textContent = 'o';
                 GameLogic.switchTurns();
@@ -148,9 +148,7 @@ const GameLogic = (() => {
             Gameboard.gameboard[6].mark == markO)
         ) {
             alert((`${Player2.name} wins!`))
-        } else {
-            alert('Tie!');
-        }
+        };
     };
 
     return {switchTurns, checkTurns, checkWinner};
