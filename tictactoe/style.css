@@ -14,5 +14,10 @@ body {
 }
 
 .sector {
+    padding: 0;
+    display: flex;
     border: solid black;
+    font-size: 7.5rem;
+    justify-content: center;
+    align-items: center;
 }

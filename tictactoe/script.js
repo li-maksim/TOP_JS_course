@@ -22,9 +22,17 @@ const Gameboard = (() => {
     const sectors = document.querySelectorAll('.sector');
     sectors.forEach(function(btn, idx) {
         function addMark() {
-            changeMark(idx, 'x');
-            showGB();
-            GameLogic.checkWinner();
+            if (GameLogic.checkTurns() == true) {
+                changeMark(idx, 'x');
+                btn.textContent = 'x';
+                GameLogic.switchTurns();
+                GameLogic.checkWinner();
+            } else {
+                changeMark(idx, 'o');
+                btn.textContent = 'o';
+                GameLogic.switchTurns();
+                GameLogic.checkWinner();
+            }
         };
         btn.addEventListener('click', addMark);
     });
@@ -36,6 +44,7 @@ const Player1 = {
     name: 'Player 1',
     score: 0,
     playerMark: 'x',
+    turn: true,
     changeName(newName) {
         this.name = newName;
     },
@@ -50,6 +59,7 @@ const Player2 = {
     name: 'Player 2',
     score: 0,
     playerMark: 'o',
+    turn: false,
     changeName(newName) {
         this.name = newName;
     },
@@ -63,6 +73,28 @@ const Player2 = {
 const GameLogic = (() => {
     const markX = Player1.playerMark;
     const markO = Player2.playerMark;
+    function switchTurns() {
+        switch (Player1.turn) {
+            case true:
+                Player1.turn = false;
+                Player2.turn = true;
+            break;
+            case false:
+                Player1.turn = true;
+                Player2.turn = false;
+            break;
+        };
+    };
+    function checkTurns() {
+        switch (Player1.turn) {
+            case true:
+                return true;
+            break;
+            case false:
+                return false;
+            break;
+        };
+    };
     function checkWinner() {
         if ((Gameboard.gameboard[0].mark == markX &&
             Gameboard.gameboard[1].mark == markX &&
@@ -90,31 +122,30 @@ const GameLogic = (() => {
             Gameboard.gameboard[6].mark == markX)
         ) {
             alert(`${Player1.name} wins!`);
-        } else if (
-            Gameboard.gameboard[0].mark,
-            Gameboard.gameboard[1].mark,
-            Gameboard.gameboard[2].mark == markO ||
-            Gameboard.gameboard[3].mark,
-            Gameboard.gameboard[4].mark,
-            Gameboard.gameboard[5].mark == markO ||
-            Gameboard.gameboard[6].mark,
-            Gameboard.gameboard[7].mark,
-            Gameboard.gameboard[8].mark == markO ||
-            Gameboard.gameboard[0].mark,
-            Gameboard.gameboard[3].mark,
-            Gameboard.gameboard[6].mark == markO ||
-            Gameboard.gameboard[1].mark,
-            Gameboard.gameboard[4].mark,
-            Gameboard.gameboard[7].mark == markO ||
-            Gameboard.gameboard[2].mark,
-            Gameboard.gameboard[5].mark,
-            Gameboard.gameboard[8].mark == markO ||
-            Gameboard.gameboard[0].mark,
-            Gameboard.gameboard[4].mark,
-            Gameboard.gameboard[8].mark == markO ||
-            Gameboard.gameboard[2].mark,
-            Gameboard.gameboard[4].mark,
-            Gameboard.gameboard[6].mark == markO
+        } else if ((Gameboard.gameboard[0].mark == markO &&
+            Gameboard.gameboard[1].mark == markO &&
+            Gameboard.gameboard[2].mark == markO) ||
+            (Gameboard.gameboard[3].mark == markO &&
+            Gameboard.gameboard[4].mark == markO &&
+            Gameboard.gameboard[5].mark == markO) ||
+            (Gameboard.gameboard[6].mark == markO &&
+            Gameboard.gameboard[7].mark == markO &&
+            Gameboard.gameboard[8].mark == markO) ||
+            (Gameboard.gameboard[0].mark == markO &&
+            Gameboard.gameboard[3].mark == markO &&
+            Gameboard.gameboard[6].mark == markO) ||
+            (Gameboard.gameboard[1].mark == markO &&
+            Gameboard.gameboard[4].mark == markO &&
+            Gameboard.gameboard[7].mark == markO) ||
+            (Gameboard.gameboard[2].mark == markO &&
+            Gameboard.gameboard[5].mark == markO &&
+            Gameboard.gameboard[8].mark == markO) ||
+            (Gameboard.gameboard[0].mark == markO &&
+            Gameboard.gameboard[4].mark == markO &&
+            Gameboard.gameboard[8].mark == markO) ||
+            (Gameboard.gameboard[2].mark == markO &&
+            Gameboard.gameboard[4].mark == markO &&
+            Gameboard.gameboard[6].mark == markO)
         ) {
             alert((`${Player2.name} wins!`))
         } else {
@@ -122,7 +153,7 @@ const GameLogic = (() => {
         }
     };
 
-    return {checkWinner};
+    return {switchTurns, checkTurns, checkWinner};
 })();
 
 function showGB() {
