@@ -126,6 +126,8 @@ const GameLogic = (() => {
         Display.sectors.forEach(function(item) {
             item.textContent = '';
         });
+        Player1.turn = true;
+        Player2.turn = false;
     };
 
     return {switchTurns, checkTurns, checkWinner, restart};
@@ -133,6 +135,8 @@ const GameLogic = (() => {
 
 const Display = (() => {
     const body = document.querySelector('body');
+    const container = document.createElement('div');
+    container.setAttribute('class', 'container');
     const board = document.createElement('div');
     board.setAttribute('class', 'board');
     for (i = 0; i < 9; i++) {
@@ -140,6 +144,8 @@ const Display = (() => {
         sector.setAttribute('class', 'sector');
         board.appendChild(sector);
     };
+    container.appendChild(board);
+    body.appendChild(container);
 
     function changeMark(num, val) {
         if (val == 'x' && Gameboard.gameboard[num].mark == '') {
@@ -149,7 +155,6 @@ const Display = (() => {
         };
     };
 
-    body.appendChild(board);
     const sectors = document.querySelectorAll('.sector');
     sectors.forEach(function(btn, idx) {
         function addMark() {
@@ -173,7 +178,7 @@ const Display = (() => {
     restartBtn.setAttribute('class', 'restart_btn');
     restartBtn.textContent = 'restart';
     restartBtn.addEventListener('click', restartFn);
-    body.appendChild(restartBtn);
+    container.appendChild(restartBtn);
 
     return {sectors, restartFn}
 
