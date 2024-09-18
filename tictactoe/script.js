@@ -184,6 +184,21 @@ const Display = (() => {
     restartBtn.addEventListener('click', restartFn);
     container.appendChild(restartBtn);
 
+    const player1 = document.createElement('div');
+    player1.setAttribute('class', 'player');
+    player1.setAttribute('id', 'player1');
+    const player2 = document.createElement('div');
+    player2.setAttribute('class', 'player');
+    player2.setAttribute('id', 'player2');
+    const nick1 = document.createElement('div');
+    nick1.setAttribute('class', 'nick');
+    nick1.textContent = `${Player1.name}`;
+    player1.appendChild(nick1);
+    const nick2 = document.createElement('div');
+    nick1.setAttribute('class', 'nick');
+    nick2.textContent = `${Player2.name}`;
+    player2.appendChild(nick2);
+
     const scoreScreen1 = document.createElement('div');
     scoreScreen1.setAttribute('class', 'screen');
     scoreScreen1.setAttribute('id', 'screen1');
@@ -192,8 +207,57 @@ const Display = (() => {
     scoreScreen2.setAttribute('class', 'screen');
     scoreScreen2.setAttribute('id', 'screen2');
     scoreScreen2.textContent = Player2.score;
-    container.appendChild(scoreScreen1);
-    container.appendChild(scoreScreen2);
+    player1.appendChild(scoreScreen1);
+    container.appendChild(player1);
+    player2.appendChild(scoreScreen2)
+    container.appendChild(player2);
+
+    const form1 = document.createElement('form');
+    const name1 = document.createElement('input');
+    name1.setAttribute('id', 'name1');
+    const label1 = document.createElement('label');
+    label1.setAttribute('class', 'names');
+    label1.setAttribute('for', 'name1');
+    label1.textContent = "Player 1's Name:"
+    const btn1 = document.createElement('button');
+    btn1.setAttribute('class', 'name_btn');
+    btn1.textContent = 'Enter Name';
+    function enterName1(evt) {
+        evt.preventDefault();
+        Player1.name = name1.value;
+        nick1.textContent = `${Player1.name}`;
+        name1.value = '';
+        name1.textContent = '';
+    };
+    btn1.addEventListener('click', enterName1);
+    form1.appendChild(label1);
+    form1.appendChild(name1);
+    form1.appendChild(btn1);
+    player1.appendChild(form1);
+
+    const form2 = document.createElement('form');
+    const name2 = document.createElement('input');
+    name2.setAttribute('id', 'name2');
+    const label2 = document.createElement('label');
+    label2.setAttribute('class', 'names');
+    label2.setAttribute('for', 'name2');
+    label2.textContent = "Player 2's Name:"
+    const btn2 = document.createElement('button');
+    function enterName2(evt) {
+        evt.preventDefault();
+        Player2.name = name2.value;
+        nick2.textContent = `${Player2.name}`;
+        name2.value = '';
+        name2.textContent = '';
+    };
+    btn2.addEventListener('click', enterName2);
+    btn2.setAttribute('class', 'name_btn');
+    btn2.textContent = 'Enter Name';
+    form2.appendChild(label2);
+    form2.appendChild(name2);
+    form2.appendChild(btn2);
+    player2.appendChild(form2);
+
 
     return {sectors, restartFn, scoreScreen1, scoreScreen2};
 
