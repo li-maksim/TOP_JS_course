@@ -90,6 +90,8 @@ const GameLogic = (() => {
             Gameboard.gameboard[6].mark == markX)
         ) {
             alert(`${Player1.name} wins!`);
+            Player1.score++;
+            Display.scoreScreen1.textContent = Player1.score;
         } else if ((Gameboard.gameboard[0].mark == markO &&
             Gameboard.gameboard[1].mark == markO &&
             Gameboard.gameboard[2].mark == markO) ||
@@ -115,7 +117,9 @@ const GameLogic = (() => {
             Gameboard.gameboard[4].mark == markO &&
             Gameboard.gameboard[6].mark == markO)
         ) {
-            alert((`${Player2.name} wins!`))
+            alert(`${Player2.name} wins!`);
+            Player2.score++;
+            Display.scoreScreen2.textContent = Player2.score;
         };
     };
 
@@ -180,7 +184,18 @@ const Display = (() => {
     restartBtn.addEventListener('click', restartFn);
     container.appendChild(restartBtn);
 
-    return {sectors, restartFn}
+    const scoreScreen1 = document.createElement('div');
+    scoreScreen1.setAttribute('class', 'screen');
+    scoreScreen1.setAttribute('id', 'screen1');
+    scoreScreen1.textContent = Player1.score;
+    const scoreScreen2 = document.createElement('div');
+    scoreScreen2.setAttribute('class', 'screen');
+    scoreScreen2.setAttribute('id', 'screen2');
+    scoreScreen2.textContent = Player2.score;
+    container.appendChild(scoreScreen1);
+    container.appendChild(scoreScreen2);
+
+    return {sectors, restartFn, scoreScreen1, scoreScreen2};
 
 })();
 
