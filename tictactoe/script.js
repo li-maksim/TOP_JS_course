@@ -192,11 +192,11 @@ const Display = (() => {
     player2.setAttribute('id', 'player2');
     const nick1 = document.createElement('div');
     nick1.setAttribute('class', 'nick');
-    nick1.textContent = `${Player1.name}`;
+    nick1.textContent = `${Player1.name} — X`;
     player1.appendChild(nick1);
     const nick2 = document.createElement('div');
     nick1.setAttribute('class', 'nick');
-    nick2.textContent = `${Player2.name}`;
+    nick2.textContent = `${Player2.name} — O`;
     player2.appendChild(nick2);
 
     const scoreScreen1 = document.createElement('div');
@@ -225,7 +225,7 @@ const Display = (() => {
     function enterName1(evt) {
         evt.preventDefault();
         Player1.name = name1.value;
-        nick1.textContent = `${Player1.name}`;
+        nick1.textContent = `${Player1.name} — X`;
         name1.value = '';
         name1.textContent = '';
     };
@@ -246,7 +246,7 @@ const Display = (() => {
     function enterName2(evt) {
         evt.preventDefault();
         Player2.name = name2.value;
-        nick2.textContent = `${Player2.name}`;
+        nick2.textContent = `${Player2.name} — O`;
         name2.value = '';
         name2.textContent = '';
     };
