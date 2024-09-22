@@ -15,11 +15,6 @@ const Player1 = {
     turn: true,
     changeName(newName) {
         this.name = newName;
-    },
-    incrScore() {
-        let playerScore = this.score;
-        playerScore++;
-        this.score = playerScore;
     }
 };
 
@@ -30,11 +25,6 @@ const Player2 = {
     turn: false,
     changeName(newName) {
         this.name = newName;
-    },
-    incrScore() {
-        let playerScore = this.score;
-        playerScore++;
-        this.score = playerScore;
     }
 };
 
