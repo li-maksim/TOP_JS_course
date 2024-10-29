@@ -107,6 +107,10 @@ dialog .form .btn_wrap {
     transform: scale(110%);
 }
 
+input:invalid {
+    outline: solid red;
+}
+
 .red_outline:invalid {
     outline: solid red;
 }

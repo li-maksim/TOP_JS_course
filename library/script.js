@@ -10,11 +10,11 @@ class Book {
 
     info() {
         if (this.read == true) {
-                console.log(`${this.title} by ${this.author}, ${this.pages} pages, read.`);
+            console.log(`${this.title} by ${this.author}, ${this.pages} pages, read.`);
         } else {
-                console.log(`${this.title} by ${this.author}, ${this.pages} pages, not read yet.`);
+            console.log(`${this.title} by ${this.author}, ${this.pages} pages, not read yet.`);
         };
-    
+
     };
 
     toggleRead() {
@@ -37,15 +37,15 @@ const LibManagement = (() => {
         myLibrary.splice(a, 1);
     };
 
-    return {addBookToLibrary, delFromLibrary}
+    return { addBookToLibrary, delFromLibrary }
 })();
 
 const Display = (() => {
     let indexNum = -1;
 
     const cards = document.querySelector('.cards');
-    
-    const createCard = function(obj) {
+
+    const createCard = function (obj) {
         const cardItem = document.createElement('div');
         indexNum += 1;
         cardItem.setAttribute('class', 'card_item');
@@ -81,7 +81,7 @@ const Display = (() => {
             LibManagement.delFromLibrary(cardItem.dataset.index);
             displayBooks();
         };
-        const toggle = function() {
+        const toggle = function () {
             obj.toggleRead();
             displayBooks();
         }
@@ -92,31 +92,31 @@ const Display = (() => {
         cardItem.appendChild(toggleBtn);
         cardItem.appendChild(delBtn);
     };
-    
+
     function clearDisplay() {
         while (cards.lastElementChild) {
             cards.removeChild(cards.lastElementChild);
         };
         indexNum = -1;
     };
-    
+
     function displayBooks() {
         clearDisplay();
         myLibrary.forEach(createCard);
     };
-    
+
     const form = document.querySelector('dialog');
-    
+
     const newBookBtn = document.querySelector('.new');
     newBookBtn.addEventListener('click', () => form.showModal());
-    
+
     const inputs = [
         document.querySelector('#title'),
         document.querySelector('#author'),
         document.querySelector('#pages'),
         document.querySelector('#read')
     ];
-    
+
     const addBookBtn = document.querySelector('.add_btn');
     function addBook(evt) {
         evt.preventDefault();
@@ -126,24 +126,21 @@ const Display = (() => {
         } else {
             input3 = false;
         };
-        if (inputs[0].value == '' ||
-            inputs[1].value == '' ||
-            inputs[0].value.length > 100 ||
-            inputs[1].value.length > 100 ||
-            inputs[2].value == ''
-        ) {
-            document.querySelectorAll('.required').forEach(x => x.setAttribute('class', 'red_outline'))
-            alert('Please fill all fields');
+
+        if (inputs[0].checkValidity() == false ||
+            inputs[1].checkValidity() == false ||
+            inputs[1].checkValidity() == false) {
+            alert('Error')
         } else {
             const newBook = new Book(inputs[0].value, inputs[1].value, parseInt(inputs[2].value), input3);
             LibManagement.addBookToLibrary(newBook);
             displayBooks();
             form.close();
-        };
+        }
     };
     addBookBtn.addEventListener('click', addBook);
 
-    return {displayBooks};
+    return { displayBooks };
 })();
 
 LibManagement.addBookToLibrary(TheHobbit);
