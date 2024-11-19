@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form action="post" id="form" novalidate>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <span></span>
+        <label for="country">Country:</label>
+        <select name="Country" id="country" required>
+            <option value="Russia">Russia</option>
+            <option value="Belarus">Belarus</option>
+            <option value="Kazakhstan">Kazakhstan</option>
+        </select>
+        <label for="zip">Zip Code:</label>
+        <input type="text" id="zip" minlength="6" maxlength="6" required>
+        <span></span>
+        <label for="password">Password:</label>
+        <input type="password" id="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" maxlength="16" required>
+        <span></span>
+        <label for="conf_password">Confirm password</label>
+        <input type="password" id="conf_password" maxlength="16" required>
+        <span></span>
+        <button id="submit">Submit</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>

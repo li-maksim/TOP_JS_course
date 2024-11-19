@@ -1,0 +1,20 @@
+form {
+    display: flex;
+    width: 600px;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.red {
+    outline: solid red;
+}
+
+#form:invalid {
+    outline: none;
+}
+
+span {
+    color: red;
+}
