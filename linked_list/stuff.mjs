@@ -1,11 +1,11 @@
-class Node {
+export class Node {
     constructor(value, next) {
         this.value = value
         this.next = next
     }
 }
 
-class LinkedList {
+export class LinkedList {
     constructor() {
         this.nodes = null
     }
@@ -131,4 +131,4 @@ list.append("hamster");
 list.append("snake");
 list.append("turtle");
 
-console.log(list.find("parrot"))
+console.log(list.at(2))
