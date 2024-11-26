@@ -1,4 +1,4 @@
-class HashMap {
+export class HashMap {
     constructor(loadFactor, capacity) {
         this.loadFactor = loadFactor
         this.capacity = capacity
@@ -23,21 +23,21 @@ class HashMap {
         if (index < 0 || index >= this.capacity) {
             throw new Error("Trying to access index out of bounds");
         } else {
-            if (this.capacity * this.loadFactor < this.length()) {
-                this.capacity = this.capacity * 2
-                for (let i = this.capacity / 2; i < capacity; i++) {
-                    this.buckets[i] = null
-                }
-            }
             if (this.buckets[index] == null) {
                 this.buckets[index] = [key, value]
             } else if (this.buckets[index][0] == key) {
                 this.buckets[index] = [key, value]
             } else {
-                if (index < this.capacity) {
+                if (index < this.capacity - 1) {
                     this.set(key, value, index + 1)
                 } else {
                     this.set(key, value, 0)
+                }
+            }
+            if (this.length() > this.capacity * this.loadFactor) {
+                this.capacity = this.capacity * 2
+                for (let i = this.capacity / 2; i < this.capacity; i++) {
+                    this.buckets[i] = null
                 }
             }
         }
@@ -75,7 +75,7 @@ class HashMap {
         } else if (this.checkFwd(key) !== false) {
             return this.buckets[this.checkFwd(key)][1]
         } else if (this.checkBwd(key) !== false) {
-            return this.buckets[this.Bwd(key)][1]
+            return this.buckets[this.checkBwd(key)][1]
         } else {
             return null
         }
@@ -156,15 +156,15 @@ class HashMap {
     }
 }
 
-const hashMap = new HashMap(1, 16)
+// const hashMap = new HashMap(1, 16)
 // hashMap.hash('Alex')
-// hashMap.hash('Alxe')
-hashMap.set('Alex', 3)
-hashMap.set('Axel', 33)
-hashMap.set('Axel', 33)
-hashMap.set('Axle', 55)
-hashMap.set('Axel', 35)
-// console.log(hashMap.clear())
-console.log(hashMap.entries())
-// console.log(hashMap.capacity)
-// console.log(hashMap.get('Axle'))
+// // hashMap.hash('Alxe')
+// hashMap.set('Alex', 3)
+// hashMap.set('Axel', 33)
+// hashMap.set('Axel', 33)
+// hashMap.set('Axle', 55)
+// hashMap.set('Axel', 35)
+// // console.log(hashMap.clear())
+// console.log(hashMap.entries())
+// // console.log(hashMap.capacity)
+// // console.log(hashMap.get('Axle'))
