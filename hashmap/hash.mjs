@@ -23,6 +23,12 @@ class HashMap {
         if (index < 0 || index >= this.capacity) {
             throw new Error("Trying to access index out of bounds");
         } else {
+            if (this.capacity * this.loadFactor < this.length()) {
+                this.capacity = this.capacity * 2
+                for (let i = this.capacity / 2; i < capacity; i++) {
+                    this.buckets[i] = null
+                }
+            }
             if (this.buckets[index] == null) {
                 this.buckets[index] = [key, value]
             } else if (this.buckets[index][0] == key) {
@@ -116,7 +122,38 @@ class HashMap {
         this.buckets = []
         for (let i = 0; i < this.capacity; i++) {
             this.buckets[i] = null
-        }    }
+        }
+    }
+
+    keys = function () {
+        let arr = []
+        for (let i = 0; i < this.capacity; i++) {
+            if (this.buckets[i] != null) {
+                arr.push(this.buckets[i][0])
+            }
+        }
+        return arr
+    }
+
+    values = function () {
+        let arr = []
+        for (let i = 0; i < this.capacity; i++) {
+            if (this.buckets[i] != null) {
+                arr.push(this.buckets[i][1])
+            }
+        }
+        return arr
+    }
+
+    entries = function () {
+        let arr = []
+        for (let i = 0; i < this.capacity; i++) {
+            if (this.buckets[i] != null) {
+                arr.push(this.buckets[i])
+            }
+        }
+        return arr
+    }
 }
 
 const hashMap = new HashMap(1, 16)
@@ -127,6 +164,7 @@ hashMap.set('Axel', 33)
 hashMap.set('Axel', 33)
 hashMap.set('Axle', 55)
 hashMap.set('Axel', 35)
-console.log(hashMap.clear())
-console.log(hashMap.length())
+// console.log(hashMap.clear())
+console.log(hashMap.entries())
+// console.log(hashMap.capacity)
 // console.log(hashMap.get('Axle'))
