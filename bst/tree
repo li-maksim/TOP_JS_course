@@ -1,7 +1,19 @@
-class node {
+class Node {
     constructor(data, left, right) {
         this.data = data
         this.left = left
         this.right = right
     }
 }
+
+class Tree {
+    constructor(arr) {
+        this.root = buildTree(arr)
+    }
+
+    buildTree = function(arr) {
+        console.log(arr)
+    } 
+}
+
+const newTree = new Tree('poof!')
