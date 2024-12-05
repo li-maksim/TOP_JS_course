@@ -44,18 +44,49 @@ class Tree {
     }
 
     insert = function (data, root = this.root) {
-        if (root == null) {
+        if (root === null) {
             return root = buildTree([data])
         } else {
             if (data < root.data) {
-                root.left = this.insert(data, root.left) 
+                root.left = this.insert(data, root.left)
             } else if (data > root.data) {
                 root.right = this.insert(data, root.right)
-            }  else {
+            } else {
                 return root
             }
             return root
         }
+    }
+
+    delete = function (data, root = this.root) {
+
+        const getSuccessor = function (currRoot) {
+            currRoot = currRoot.right
+            while (currRoot !== null && currRoot.left !== null) {
+                currRoot = currRoot.left
+            }
+            return currRoot
+        }
+
+        if (root === null) {
+            return root
+        }
+        if (data < root.data) {
+            root.left = this.delete (data, root.left)
+        } else if (data > root.data) {
+            root.right = this.delete (data, root.right)
+        } else {
+            if (root.left === null) {
+                return root.right
+            } else if (root.right === null) {
+                return root.left
+            } else {
+                let succ = getSuccessor(root)
+                root.data = succ.data
+                root.right = this.delete(succ.data, root.right)
+            }
+        }
+        return root
     }
 }
 
@@ -66,5 +97,7 @@ const newTree = new Tree(sortedArray)
 newTree.insert(5)
 newTree.insert(4)
 newTree.insert(6)
+newTree.delete(5)
+newTree.delete(4)
 newTree.show()
 // console.log(newTree.root)
