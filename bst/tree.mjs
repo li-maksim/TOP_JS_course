@@ -21,13 +21,6 @@ const buildTree = function (arr, start = 0, end = arr.length - 1) {
     }
 }
 
-class Tree {
-    constructor(arr) {
-        this.root = buildTree(arr)
-    }
-
-}
-
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
         return;
@@ -41,6 +34,37 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 }
 
-const sortedArray = [1, 2, 3, 4, 5, 6, 7]
-const newTree = buildTree(sortedArray)
-prettyPrint(newTree)
+class Tree {
+    constructor(arr) {
+        this.root = buildTree(arr.sort(function (a, b) { return a - b; }))
+    }
+
+    show = function () {
+        prettyPrint(this.root)
+    }
+
+    insert = function (data, root = this.root) {
+        if (root == null) {
+            return root = buildTree([data])
+        } else {
+            if (data < root.data) {
+                root.left = this.insert(data, root.left) 
+            } else if (data > root.data) {
+                root.right = this.insert(data, root.right)
+            }  else {
+                return root
+            }
+            return root
+        }
+    }
+}
+
+
+
+const sortedArray = [1, 2, 3, 5]
+const newTree = new Tree(sortedArray)
+newTree.insert(5)
+newTree.insert(4)
+newTree.insert(6)
+newTree.show()
+// console.log(newTree.root)
