@@ -88,6 +88,21 @@ class Tree {
         }
         return root
     }
+
+    find = function(data, root = this.root) {
+        if (root === null) {
+            return root
+        } else {
+            if (data === root.data) {
+                return root
+            } else if (data < root.data) {
+                return this.find(data, root.left)
+            } else {
+                return this.find(data, root.right)
+            }
+        }
+        return root
+    }
 }
 
 
@@ -99,5 +114,5 @@ newTree.insert(4)
 newTree.insert(6)
 newTree.delete(5)
 newTree.delete(4)
-newTree.show()
+console.log(newTree.find(3))
 // console.log(newTree.root)
