@@ -34,6 +34,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 }
 
+const log = function (arg) {
+    console.log(arg.data)
+}
+
 class Tree {
     constructor(arr) {
         this.root = buildTree(arr.sort(function (a, b) { return a - b; }))
@@ -72,9 +76,9 @@ class Tree {
             return root
         }
         if (data < root.data) {
-            root.left = this.delete (data, root.left)
+            root.left = this.delete(data, root.left)
         } else if (data > root.data) {
-            root.right = this.delete (data, root.right)
+            root.right = this.delete(data, root.right)
         } else {
             if (root.left === null) {
                 return root.right
@@ -89,7 +93,7 @@ class Tree {
         return root
     }
 
-    find = function(data, root = this.root) {
+    find = function (data, root = this.root) {
         if (root === null) {
             return root
         } else {
@@ -103,16 +107,46 @@ class Tree {
         }
         return root
     }
+
+    levelOrder = function (cb, root = this.root) {
+        if (cb == undefined) {
+            throw new Error('Callback function is required!')
+        }
+        let queue = []
+        if (root === null) {
+            return
+        } else {
+            queue.push(root)
+            while (queue.length > 0) {
+                let node = queue.shift()
+                cb(node)
+                if (node.left) queue.push(node.left)
+                if (node.right) queue.push(node.right)
+            }
+        }
+    }
+
+    inOrder = function (cb, root = this.root) {
+        if (cb == undefined) {
+            throw new Error('Callback function is required!')
+        }
+        if (root == null) {
+            return
+        } else {
+            if (root.left) this.inOrder(cb, root.left)
+            cb(root)
+            if (root.right) this.inOrder(cb, root.right)
+        }
+    }
 }
 
-
-
-const sortedArray = [1, 2, 3, 5]
+const sortedArray = [1, 2, 3, 4, 5, 6, 7]
 const newTree = new Tree(sortedArray)
-newTree.insert(5)
-newTree.insert(4)
-newTree.insert(6)
-newTree.delete(5)
-newTree.delete(4)
-console.log(newTree.find(3))
+newTree.insert(6.5)
+// newTree.insert(7)
+// newTree.delete(5)
+// newTree.delete(4)
+// prettyPrint(newTree.root)
+newTree.inOrder(log)
+// console.log(newTree.find(3))
 // console.log(newTree.root)
