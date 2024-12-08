@@ -138,15 +138,98 @@ class Tree {
             if (root.right) this.inOrder(cb, root.right)
         }
     }
+
+    preOrder = function (cb, root = this.root) {
+        if (cb == undefined) {
+            throw new Error('Callback function is required!')
+        }
+        let queue = []
+        if (root == null) {
+            return
+        } else {
+            cb(root)
+            if (root.left) this.preOrder(cb, root.left)
+            if (root.right) queue.push(root.right)
+            while (queue.length > 0) {
+                this.preOrder(cb, queue[0])
+                queue.shift()
+            }
+        }
+    }
+
+    postOrder = function (cb, root = this.root) {
+        if (cb == undefined) {
+            throw new Error('Callback function is required!')
+        }
+        if (root == null) {
+            return
+        } else {
+            if (root.left) this.postOrder(cb, root.left)
+            if (root.right) this.postOrder(cb, root.right)
+            cb(root)
+        }
+    }
+
+    height = function (root = this.root) {
+        if (root == null) {
+            return 0
+        } else {
+            let leftLength = this.height(root.left)
+            let rightLength = this.height(root.right)
+            return Math.max(leftLength, rightLength) + 1
+        }
+    }
+
+    depth = function (node, root = this.root) {
+        let depth = null
+        if (root == null) {
+            return depth = null
+        } else {
+            if (node === root.data) {
+                return depth = 1
+            } else if (node < root.data) {
+                return depth + this.depth(node, root.left)
+            } else {
+                return depth + this.depth(node, root.right)
+            }
+        }
+    }
+
+    isBalanced = function () {
+        if (this.height(this.root.left) === this.height(this.root.right)) {
+            return true
+        } else {
+            let max = Math.max(this.height(this.root.left), this.height(this.root.right))
+            let min = Math.min(this.height(this.root.left), this.height(this.root.right))
+            console.log(max)
+            console.log(min)
+            if (max - min > 1) {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
+
+    rebalance = function () {
+        if (!this.isBalanced()) {
+            let arr = []
+            const createArray = function(arg) {
+                arr.push(arg.data)
+            }
+            this.inOrder(createArray)
+            this.root = buildTree(arr)
+        }
+    }
 }
 
-const sortedArray = [1, 2, 3, 4, 5, 6, 7]
+const sortedArray = [1, 2, 3, 4, 5]
 const newTree = new Tree(sortedArray)
-newTree.insert(6.5)
-// newTree.insert(7)
-// newTree.delete(5)
+newTree.insert(6)
+newTree.insert(7)
+newTree.insert(8)
 // newTree.delete(4)
-// prettyPrint(newTree.root)
-newTree.inOrder(log)
+console.log(newTree.rebalance())
+prettyPrint(newTree.root)
 // console.log(newTree.find(3))
 // console.log(newTree.root)
